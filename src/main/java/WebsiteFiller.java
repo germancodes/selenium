@@ -63,10 +63,9 @@ public class WebsiteFiller implements MainInterface{
     }
     @Override
     public void closeSite(){
-      //driver.close();
+      driver.close();
       driver.quit();
-      System.out.println("Done");
-      System.exit(0);
+      System.out.println("Done w/ automation");
     }
     
     public void populateValues(String strFirstName, String strMiddleName) {
