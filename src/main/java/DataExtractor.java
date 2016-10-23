@@ -29,7 +29,7 @@ public class DataExtractor {
         stmt.close();
     }
     
-    public void executeDataEntry() throws SQLException{
+    public void executeDataEntry(String strURL) throws SQLException{
         int intArrySize, x;
         
         Statement stmt = conn.createStatement();
@@ -37,7 +37,7 @@ public class DataExtractor {
         
         while(recordSet.next()){
             WebsiteFiller testItem = new WebsiteFiller();
-            testItem.loadSite("http://www.pvamu.edu/ece/students/current/prerequisite-override-request/");
+            testItem.loadSite(strURL);
             intArrySize = webIDList.size();
             for (x = 0; x < intArrySize; x++){
                 switch(elementTypeList.get(x)){
