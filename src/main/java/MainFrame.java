@@ -7,7 +7,15 @@
 /**
  *
  * @author German
- */
+ */ 
+import java.io.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.SQLException;
+import javax.swing.*;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.*;
+
 public class MainFrame extends javax.swing.JFrame {
 
     /**
@@ -15,6 +23,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        jLabel4.setVisible(false);
     }
 
     /**
@@ -36,10 +45,13 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -56,13 +68,20 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setText("Enter database's path:");
 
         jButton2.setText("Browse...");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
+        jTextArea1.getAccessibleContext().setAccessibleName("");
 
         jLabel2.setText("Enter website's URL:");
 
@@ -76,14 +95,26 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
         jLabel3.setText("WEB AUTOMATION SYSTEM");
 
+        jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 153, 0));
+        jLabel4.setText("Running....");
+
         jMenu1.setText("File");
 
-        jMenu5.setText("jMenu5");
-        jMenu1.add(jMenu5);
+        jMenuItem1.setText("Exit");
+        jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
         jMenu4.setText("Help");
+
+        jMenuItem2.setText("Instructions");
+        jMenu4.add(jMenuItem2);
+
+        jMenuItem3.setText("About");
+        jMenuItem3.setToolTipText("");
+        jMenu4.add(jMenuItem3);
+
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -111,6 +142,10 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(119, 119, 119)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(125, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(309, 309, 309))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,42 +162,59 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(10, 10, 10)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
+
+        jLabel4.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        WebsiteFiller testItem = new WebsiteFiller();
-        testItem.loadSite("http://www.pvamu.edu/ece/students/current/prerequisite-override-request/");
-        testItem.populateDropDown("input_15_71", "Prerequisite Override");
-        testItem.populateTextBox("input_15_6_3", "German");
-        testItem.populateTextBox("input_15_6_6", "Candelaria");
-        testItem.populateTextBox("input_15_24", "(210)789-1974");
-        testItem.populateTextBox("input_15_39", "K00345943");
-        testItem.selectRadio("choice_15_43_0");
-        testItem.selectRadio("choice_15_48_3");
-        testItem.populateDropDown("input_15_42", "Dr. Attia");
-        testItem.populateSpecialTextBox("//*[@id=\"field_15_49\"]/div[2]/table/tbody/tr/td[1]/input", "CSCI-4344");
-        testItem.populateSpecialTextBox("//*[@id=\"field_15_49\"]/div[2]/table/tbody/tr/td[2]/input", "35478");
-        testItem.populateSpecialTextBox("//*[@id=\"field_15_49\"]/div[2]/table/tbody/tr/td[3]/input", "CSCI-1336");
-        testItem.SpecialClickButton("//*[@id=\"field_15_49\"]/div[2]/table/tbody/tr[1]/td[4]/img[1]");
-        testItem.populateSpecialTextBox("//*[@id=\"field_15_49\"]/div[2]/table/tbody/tr[2]/td[1]/input", "CSCI-4366");
-        testItem.populateSpecialTextBox("//*[@id=\"field_15_49\"]/div[2]/table/tbody/tr[2]/td[2]/input", "35470");
-        testItem.populateSpecialTextBox("//*[@id=\"field_15_49\"]/div[2]/table/tbody/tr[2]/td[3]/input", "CSCI-1337");
-        testItem.populateDropDown("input_15_46", "Yes");
-        testItem.selectRadio("label_15_45_0");
-        testItem.populateDropDown("input_15_60", "Yes");
-        testItem.uploadFile("input_15_59", "C:\\Users\\German\\Documents\\School\\Fall 2016\\CSCI-4366_THE\\Course Documents\\CSCI_4366_syllabus_FA16.pdf");
-        testItem.uploadFile("input_15_31", "C:\\Users\\German\\Documents\\School\\Fall 2016\\CSCI-4366_THE\\Course Documents\\CSCI_4366_syllabus_FA16.pdf");
-        //testItem.clickButton("gform_submit_button_15");
-        //testItem.closeSite();
-        System.out.println("Done");
-        // TODO add your handling code here:
+        if(jTextArea1.getText().isEmpty() || jTextArea2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter all required values prior to running the automation!", "Missing values", JOptionPane.ERROR_MESSAGE);
+        } else {
+            jLabel4.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Starting automation", "Process", JOptionPane.INFORMATION_MESSAGE);
+            DataExtractor dbTestItem = new DataExtractor();
+            try{
+                dbTestItem.loadDBConn(jTextArea1.getText());
+                dbTestItem.getDBValues();
+                dbTestItem.executeDataEntry(jTextArea2.getText());
+            }
+            catch (SQLException e){
+                    e.printStackTrace();
+             }
+            JOptionPane.showMessageDialog(null, "Done");
+            System.out.println("Done");
+            jLabel4.setVisible(false);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //Create a file chooser
+        String strExtension;
+        final JFileChooser fc = new JFileChooser();
+        //In response to a button click:
+        int returnVal = fc.showOpenDialog(jTextArea1);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            strExtension = file.getPath().substring(file.getPath().length() - 5, file.getPath().length());
+            System.out.println(strExtension);
+            if (strExtension.equals("accdb")) {
+                jTextArea1.setText(file.getPath());
+            } else {
+                JOptionPane.showMessageDialog(null, "Supported file types:\n-accdb", "Error", JOptionPane.ERROR_MESSAGE);
+                jTextArea1.setText(null);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to open file!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,6 +245,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainFrame().setVisible(true);
             }
@@ -205,11 +258,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
