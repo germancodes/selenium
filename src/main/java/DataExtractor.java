@@ -2,15 +2,64 @@ import java.sql.*;
 import java.util.*;
 
 public class DataExtractor { 
-    private Connection conn;
+    public Connection conn;
     private String strSQL;
     private final List<String> webIDList = new ArrayList<>();
     private final List<String> elementTypeList = new ArrayList<>();
     private final List<String> columNameList = new ArrayList<>();
+    private final List<String> mappingColumns = new ArrayList<>();
     
     
     public void loadDBConn(String strDBPath) throws SQLException{
+        strSQL = "";
+        webIDList.clear();
+        elementTypeList.clear();
+        columNameList.clear();
+        mappingColumns.clear();
         conn = DriverManager.getConnection("jdbc:ucanaccess://" + strDBPath);
+    }
+    
+    public boolean checkTables() throws SQLException {
+        Statement stmt2 = conn.createStatement();
+        try{
+            ResultSet recordSet = stmt2.executeQuery("SELECT * FROM tblMappings");
+            if(!(recordSet.isBeforeFirst())){
+            return false;
+            } else {
+                recordSet.close();
+                recordSet = stmt2.executeQuery("SELECT * FROM tblValues");
+                return recordSet.isBeforeFirst();
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+    
+    public boolean checkDataStructure() throws SQLException {
+        Statement stmt3 = conn.createStatement();
+        
+        try {
+            ResultSet recordSet = stmt3.executeQuery("SELECT executionOrder, fieldID, elementType, columnName FROM tblMappings");
+            while(recordSet.next()){
+                mappingColumns.add(recordSet.getString("columnName"));
+            }
+            createSQL();
+            recordSet.close();
+            recordSet = stmt3.executeQuery(strSQL);
+            recordSet.close();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+    
+    private void createSQL() {
+        String strTemp = "";
+        for(int x = 0; x < mappingColumns.size(); x++){
+            strTemp = strTemp + mappingColumns.get(x) + ", ";
+        }
+        strSQL = "SELECT ID, " + strTemp + "Status FROM tblValues";
+        System.out.println(strSQL);
     }
     
     public void getDBValues() throws SQLException{
