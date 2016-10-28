@@ -114,10 +114,20 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu4.setText("Help");
 
         jMenuItem2.setText("Instructions");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem2);
 
         jMenuItem3.setText("About");
         jMenuItem3.setToolTipText("");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem3);
 
         jMenuBar1.add(jMenu4);
@@ -185,17 +195,25 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             jLabel4.setVisible(true);
             JOptionPane.showMessageDialog(null, "Starting automation", "Process", JOptionPane.INFORMATION_MESSAGE);
-            DataExtractor dbTestItem = new DataExtractor();
+            DataExtractor dbItem = new DataExtractor();
             try{
-                dbTestItem.loadDBConn(jTextArea1.getText());
-                dbTestItem.getDBValues();
-                dbTestItem.executeDataEntry(jTextArea2.getText());
+                dbItem.loadDBConn(jTextArea1.getText());
+                if(!(dbItem.checkTables())) {
+                    JOptionPane.showMessageDialog(null, "Tables 'tblValues' & 'tblMappings' are not present in DB", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if(!(dbItem.checkDataStructure())){
+                        JOptionPane.showMessageDialog(null, "Tables 'tblValues' & 'tblMappings' do not contain the necessary columns", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        dbItem.getDBValues();
+                        dbItem.executeDataEntry(jTextArea2.getText());
+                        JOptionPane.showMessageDialog(null, "Done");
+                        System.out.println("Done");
+                    }
+                }
             }
             catch (SQLException e){
                     e.printStackTrace();
              }
-            JOptionPane.showMessageDialog(null, "Done");
-            System.out.println("Done");
             jLabel4.setVisible(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -224,6 +242,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        JOptionPane.showMessageDialog(null, "Web Automation System 1.0\nDeveloped by: German Candelaria", "About", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        JOptionPane.showMessageDialog(null, "Coming Soon!", "Instructions", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
