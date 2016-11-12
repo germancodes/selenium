@@ -199,15 +199,21 @@ public class MainFrame extends javax.swing.JFrame {
             try{
                 dbItem.loadDBConn(jTextArea1.getText());
                 if(!(dbItem.checkTables())) {
-                    JOptionPane.showMessageDialog(null, "Tables 'tblValues' & 'tblMappings' are not present in DB", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Necessary tables are not present in the Database\n\n" + dbItem.getErrorMsg() + 
+                                                 "\n\nRefer to 'Help' -> 'Instructions' for more information", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     if(!(dbItem.checkDataStructure())){
-                        JOptionPane.showMessageDialog(null, "Tables 'tblValues' & 'tblMappings' do not contain the necessary columns", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Tables 'tblValues' & 'tblMappings' do not contain the necessary columns\n\n" + dbItem.getErrorMsg() +
+                                                      "\n\nRefer to 'Help' -> 'Instructions' for more information", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
                         dbItem.getDBValues();
-                        dbItem.executeDataEntry(jTextArea2.getText());
-                        JOptionPane.showMessageDialog(null, "Done");
-                        System.out.println("Done");
+                        if(!(dbItem.executeDataEntry(jTextArea2.getText()))){
+                            JOptionPane.showMessageDialog(null, "The following error occured during the code execution:\n\n" + dbItem.getErrorMsg() + 
+                                                          "\n\nRefer to 'Help' -> 'Instructions' for more information", "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Automation successfully completed!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            System.out.println("Done");
+                        }
                     }
                 }
             }
