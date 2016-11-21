@@ -211,7 +211,7 @@ public class MainFrame extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "The following error occured during the code execution:\n\n" + dbItem.getErrorMsg() + 
                                                           "\n\nRefer to 'Help' -> 'Instructions' for more information", "Error", JOptionPane.ERROR_MESSAGE);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Automation successfully completed!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Automation successfully completed!", "Success!", JOptionPane.INFORMATION_MESSAGE);
                             System.out.println("Done");
                         }
                     }
